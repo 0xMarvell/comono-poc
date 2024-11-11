@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Verification POC</title>
+    <style>
+        /* Basic styling for form */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f6f8;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        form label,
+        form input,
+        form textarea,
+        form button {
+            font-size: 14px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        form button {
+            grid-column: span 2;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        input:read-only,
+        textarea:read-only {
+            background-color: #f0f0f0;
+            /* Light gray tint */
+            color: #666;
+            /* Darker text to show it's inactive */
+            cursor: not-allowed;
+            /* Change cursor to indicate non-editable */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Address Verification Form</h2>
+        <form id="verificationForm" action="/submit" method="post">
+            <!-- <label for="workitemId">Work Item ID:</label>
+            <input type="text" id="workitemId" name="workitemId" required> -->
+
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <!-- <label for="branchCode">Branch Code:</label>
+            <input type="text" id="branchCode" name="branchCode" value="800" required readonly>
+
+            <label for="segmentId">Segment ID:</label>
+            <input type="text" id="segmentId" name="segmentId" value="SME_APP" readonly> -->
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
+
+            <label for="landmark">Landmark:</label>
+            <input type="text" id="landmark" name="landmark" required>
+
+            <!-- <label for="state">State:</label>
+            <input type="text" id="state" name="state" value="LA" readonly>
+
+            <label for="lga">LGA:</label>
+            <input type="text" id="lga" name="lga" value="LA011" readonly> -->
+
+            <!-- <label for="createdBy">Created By:</label>
+            <input type="text" id="createdBy" name="createdBy" required> -->
+
+            <label for="latitude">Latitude:</label>
+            <input type="text" id="latitude" name="latitude" readonly required>
+
+            <label for="longitude">Longitude:</label>
+            <input type="text" id="longitude" name="longitude" readonly required>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+
+            <!-- <label for="requestId">Request ID:</label>
+            <input type="text" id="requestId" name="requestId">
+
+            <label for="rmCode">RM Code:</label>
+            <input type="text" id="rmCode" name="rmCode"> -->
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script> // Function to get the user's location and populate form fields 
+        function populateLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    document.getElementById("latitude").value = latitude;
+                    document.getElementById("longitude").value = longitude;
+                }, (error) => { console.error("Error retrieving location:", error.message); });
+            } else { console.error("Geolocation is not supported by this browser."); }
+        } window.onload = populateLocation; </script>
+</body>
+
+</html>
+
